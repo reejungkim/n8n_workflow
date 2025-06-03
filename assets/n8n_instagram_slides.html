@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N8N 인스타그램 슬라이드</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .slide-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        .slide {
+            width: 400px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-radius: 20px;
+            padding: 30px;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .slide-1 {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+        }
+        
+        .slide-2 {
+            background: linear-gradient(45deg, #A8E6CF, #88D8A3);
+        }
+        
+        .slide-3 {
+            background: linear-gradient(45deg, #FFD93D, #FF6B6B);
+        }
+        
+        .slide-4 {
+            background: linear-gradient(45deg, #6C5CE7, #A29BFE);
+        }
+        
+        .slide-5 {
+            background: linear-gradient(45deg, #FD79A8, #E84393);
+        }
+        
+        .slide-6 {
+            background: linear-gradient(45deg, #00B894, #00CEC9);
+        }
+        
+        .slide-7 {
+            background: linear-gradient(45deg, #FDCB6E, #E17055);
+        }
+        
+        .slide h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin: 0 0 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .slide h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 0 0 15px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .slide p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 10px 0;
+            font-weight: 500;
+        }
+        
+        .emoji {
+            font-size: 3rem;
+            margin: 10px 0;
+        }
+        
+        .highlight {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: 700;
+        }
+        
+        .download-section {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .download-btn {
+            background: #FF6B6B;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .instruction {
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="instruction">
+        💡 각 슬라이드를 개별적으로 PNG로 다운로드할 수 있어요! 버튼을 클릭하면 자동으로 다운로드됩니다.
+    </div>
+    
+    <div class="slide-container">
+        <!-- 슬라이드 1: 타이틀 -->
+        <div class="slide slide-1" id="slide1">
+            <div class="emoji">🤖</div>
+            <h1>N8N</h1>
+            <p>코딩 몰라도 OK!</p>
+            <p><span class="highlight">자동화의 신세계</span></p>
+            <p>가 열린다 🔥</p>
+        </div>
+        
+        <!-- 슬라이드 2: N8N이 뭔데? -->
+        <div class="slide slide-2" id="slide2">
+            <h2>N8N이 뭔데? 🤔</h2>
+            <p>노코드 자동화 툴!</p>
+            <div class="emoji">🔗</div>
+            <p>앱들을 <span class="highlight">레고블럭</span>처럼</p>
+            <p>연결해서 자동화 만들기</p>
+        </div>
+        
+        <!-- 슬라이드 3: 왜 핫한가? -->
+        <div class="slide slide-3" id="slide3">
+            <h2>왜 지금 핫한가? 🔥</h2>
+            <p>✅ 완전 무료 오픈소스</p>
+            <p>✅ 400+ 앱 연동 가능</p>
+            <p>✅ 드래그&드롭으로 쉽게</p>
+            <div class="emoji">🎯</div>
+        </div>
+        
+        <!-- 슬라이드 4: 실제 사용 예시 -->
+        <div class="slide slide-4" id="slide4">
+            <h2>실제로 뭘 할 수 있어? 💪</h2>
+            <p>📧 이메일 → 슬랙 알림</p>
+            <p>📊 구글시트 → 디스코드</p>
+            <p>🛒 새 주문 → 인스타 DM</p>
+            <div class="emoji">⚡</div>
+        </div>
+        
+        <!-- 슬라이드 5: VS 경쟁자들 -->
+        <div class="slide slide-5" id="slide5">
+            <h2>Zapier vs N8N 🥊</h2>
+            <p><strong>Zapier:</strong> 돈 💸</p>
+            <p><strong>N8N:</strong> 공짜 🆓</p>
+            <div class="emoji">🏆</div>
+            <p><span class="highlight">이기는 건 당연히 N8N!</span></p>
+        </div>
+        
+        <!-- 슬라이드 6: 시작하는 법 -->
+        <div class="slide slide-6" id="slide6">
+            <h2>어떻게 시작해? 🚀</h2>
+            <p>1️⃣ n8n.io 접속</p>
+            <p>2️⃣ 클라우드 or 셀프호스팅</p>
+            <p>3️⃣ 워크플로우 만들기</p>
+            <div class="emoji">✨</div>
+        </div>
+        
+        <!-- 슬라이드 7: 마무리 -->
+        <div class="slide slide-7" id="slide7">
+            <h2>결론 💡</h2>
+            <p>반복작업은 <span class="highlight">이제 그만!</span></p>
+            <p>N8N으로 시간 절약하고</p>
+            <p>진짜 중요한 일에 집중하자 🎯</p>
+            <div class="emoji">🔥</div>
+        </div>
+    </div>
+    
+    <div class="download-section">
+        <h3>슬라이드 다운로드</h3>
+        <button class="download-btn" onclick="downloadSlide('slide1', 'N8N_슬라이드_1_타이틀')">슬라이드 1 다운로드</button>
+        <button class="download-btn" onclick="downloadSlide('slide2', 'N8N_슬라이드_2_정의')">슬라이드 2 다운로드</button>
+        <button class="download-btn" onclick="downloadSlide('slide3', 'N8N_슬라이드_3_장점')">슬라이드 3 다운로드</button>
+        <button class="download-btn" onclick="downloadSlide('slide4', 'N8N_슬라이드_4_활용')">슬라이드 4 다운로드</button>
+        <button class="download-btn" onclick="downloadSlide('slide5', 'N8N_슬라이드_5_비교')">슬라이드 5 다운로드</button>
+        <button class="download-btn" onclick="downloadSlide('slide6', 'N8N_슬라이드_6_시작')">슬라이드 6 다운로드</button>
+        <button class="download-btn" onclick="downloadSlide('slide7', 'N8N_슬라이드_7_결론')">슬라이드 7 다운로드</button>
+        <button class="download-btn" onclick="downloadAllSlides()" style="background: #6C5CE7;">전체 다운로드</button>
+    </div>
+
+    <script>
+        function downloadSlide(slideId, filename) {
+            const slide = document.getElementById(slideId);
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // 인스타그램 정사각형 비율 (1080x1080)
+            canvas.width = 1080;
+            canvas.height = 1080;
+            
+            // HTML을 이미지로 변환
+            html2canvas(slide, {
+                canvas: canvas,
+                width: 400,
+                height: 400,
+                scale: 2.7,
+                useCORS: true,
+                allowTaint: true
+            }).then(function(canvas) {
+                const link = document.createElement('a');
+                link.download = filename + '.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+        
+        function downloadAllSlides() {
+            for(let i = 1; i <= 7; i++) {
+                setTimeout(() => {
+                    downloadSlide(`slide${i}`, `N8N_슬라이드_${i}`);
+                }, i * 500);
+            }
+        }
+    </script>
+    
+    <!-- html2canvas 라이브러리 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</body>
+</html>
