@@ -1,0 +1,367 @@
+{
+    "nodes": [
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          0,
+          200
+        ],
+        "id": "c21e467a-f92c-4beb-982a-1e63e315a1fe",
+        "name": "When clicking 'Test workflow'"
+      },
+      {
+        "parameters": {
+          "httpRequestMethod": "POST",
+          "graphApiVersion": "v22.0",
+          "node": "17841474916280796",
+          "edge": "media_publish",
+          "options": {
+            "queryParameters": {
+              "parameter": [
+                {}
+              ]
+            }
+          }
+        },
+        "type": "n8n-nodes-base.facebookGraphApi",
+        "typeVersion": 1,
+        "position": [
+          0,
+          -60
+        ],
+        "id": "64eab579-7c09-41f3-918a-ecdd7c72e5eb",
+        "name": "Post to IG",
+        "credentials": {
+          "facebookGraphApi": {
+            "id": "9OZVQiPv2Ty6kCnx",
+            "name": "Facebook Graph account 2"
+          }
+        },
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "pollTimes": {
+            "item": [
+              {
+                "mode": "everyMinute"
+              }
+            ]
+          },
+          "triggerOn": "specificFolder",
+          "folderToWatch": {
+            "__rl": true,
+            "value": "13MtnRu8LTLEFEMxT9IngGOqErZjJcLFG",
+            "mode": "list",
+            "cachedResultName": "n8n",
+            "cachedResultUrl": "https://drive.google.com/drive/folders/13MtnRu8LTLEFEMxT9IngGOqErZjJcLFG"
+          },
+          "event": "fileCreated",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleDriveTrigger",
+        "typeVersion": 1,
+        "position": [
+          0,
+          460
+        ],
+        "id": "90c367ba-6965-4c89-83ef-14224ab2a76b",
+        "name": "Google Drive Trigger",
+        "credentials": {
+          "googleDriveOAuth2Api": {
+            "id": "lF2brsXHvKKxcNL0",
+            "name": "Google Drive account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "download",
+          "fileId": {
+            "__rl": true,
+            "value": "={{ $json.id }}",
+            "mode": "id"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleDrive",
+        "typeVersion": 3,
+        "position": [
+          220,
+          460
+        ],
+        "id": "5f9799a7-c177-49d5-a3dc-3ac29a62968a",
+        "name": "Google Drive",
+        "credentials": {
+          "googleDriveOAuth2Api": {
+            "id": "lF2brsXHvKKxcNL0",
+            "name": "Google Drive account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "url": "https://graph.instagram.com/v22.0/me",
+          "sendQuery": true,
+          "queryParameters": {
+            "parameters": [
+              {
+                "name": "fields",
+                "value": "user_id, username, account_type"
+              },
+              {
+                "name": "access_token",
+                "value": "*******************"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          0,
+          -320
+        ],
+        "id": "dc37b2aa-3ffc-49da-bd3a-01993a5a2645",
+        "name": "HTTP Request",
+        "disabled": true
+      },
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.wait",
+        "typeVersion": 1.1,
+        "position": [
+          1100,
+          460
+        ],
+        "id": "04549a52-3108-43f9-92b7-87841b22b182",
+        "name": "Wait",
+        "webhookId": "abbb8d03-ff97-4581-bd19-8dca8b5cb4dd"
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "1ee79254-437b-49ac-b7cf-12ae5009f9d4",
+                "name": "image_url",
+                "value": "={{ $('Google Drive').item.json.thumbnailLink }}",
+                "type": "string"
+              },
+              {
+                "id": "9b85aec3-1b3b-44e1-9dd5-c96e6ea939cf",
+                "name": "instagram_id",
+                "value": "17841474916280796",
+                "type": "string"
+              },
+              {
+                "id": "dda0cef7-a0e8-4c69-839b-dd045da88259",
+                "name": "instagram_post_caption",
+                "value": "n8n테스트  캡션",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          660,
+          460
+        ],
+        "id": "dd04458d-33f7-499e-9dab-407ab338f69c",
+        "name": "Insta Params"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "=https://graph.instagram.com/v22.0/{{ $json.instagram_id }}/media",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "sendBody": true,
+          "bodyParameters": {
+            "parameters": [
+              {
+                "name": "image_url",
+                "value": "={{ $json.image_url }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          880,
+          460
+        ],
+        "id": "61d38a1f-1475-498a-9b1c-e4ffe873daf8",
+        "name": "create container",
+        "credentials": {
+          "httpHeaderAuth": {
+            "id": "oPUyoUs0Xl3B3lm7",
+            "name": "Instagram"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "=https://graph.instagram.com/v22.0/{{ $('Insta Params').item.json.instagram_id }}/media_publish",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "sendBody": true,
+          "bodyParameters": {
+            "parameters": [
+              {
+                "name": "image_url",
+                "value": "={{ $('Insta Params').item.json.image_url }}"
+              },
+              {
+                "name": "creation_id",
+                "value": "={{ $('create container').item.json.id }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          1320,
+          460
+        ],
+        "id": "00202dd3-c6df-4d6a-a0cc-e83b45cc8ad5",
+        "name": "post",
+        "credentials": {
+          "httpHeaderAuth": {
+            "id": "oPUyoUs0Xl3B3lm7",
+            "name": "Instagram"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "move",
+          "fileId": {
+            "__rl": true,
+            "value": "={{ $json.id }}",
+            "mode": "id"
+          },
+          "driveId": {
+            "__rl": true,
+            "value": "https://drive.google.com/https://drive.google.com/drive/folders/13MtnRu8LTLEFEMxT9IngGOqErZjJcLFGdrive/my-drive",
+            "mode": "url"
+          },
+          "folderId": {
+            "__rl": true,
+            "value": "1zJg231C5DMuHQSBlm0OzVbeZCkByxXeJ",
+            "mode": "list",
+            "cachedResultName": "processed media",
+            "cachedResultUrl": "https://drive.google.com/drive/folders/1zJg231C5DMuHQSBlm0OzVbeZCkByxXeJ"
+          }
+        },
+        "type": "n8n-nodes-base.googleDrive",
+        "typeVersion": 3,
+        "position": [
+          440,
+          460
+        ],
+        "id": "185cabd4-89fd-4783-a2b7-b6e7a0b5e4be",
+        "name": "Google Drive1",
+        "credentials": {
+          "googleDriveOAuth2Api": {
+            "id": "lF2brsXHvKKxcNL0",
+            "name": "Google Drive account"
+          }
+        }
+      }
+    ],
+    "connections": {
+      "When clicking 'Test workflow'": {
+        "main": [
+          []
+        ]
+      },
+      "Google Drive Trigger": {
+        "main": [
+          [
+            {
+              "node": "Google Drive",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Google Drive": {
+        "main": [
+          [
+            {
+              "node": "Google Drive1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HTTP Request": {
+        "main": [
+          []
+        ]
+      },
+      "Wait": {
+        "main": [
+          [
+            {
+              "node": "post",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Insta Params": {
+        "main": [
+          [
+            {
+              "node": "create container",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "create container": {
+        "main": [
+          [
+            {
+              "node": "Wait",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Google Drive1": {
+        "main": [
+          [
+            {
+              "node": "Insta Params",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "pinData": {},
+    "meta": {
+      "templateCredsSetupCompleted": true,
+      "instanceId": "8b98216641d21c7a7c8fa49930b923d043d8a64e5ee379d544a06dae10f89c9a"
+    }
+  }
