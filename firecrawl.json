@@ -1,0 +1,312 @@
+{
+  "name": "firecrawl",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "id": "d46a13dd-8930-4e05-b9b1-e2fba4c880ab",
+      "name": "Daily Market Research Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [
+        -660,
+        600
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "content": "🌐💻 2. Crawling & Filtering\nNodes:\n🌐 Crawl TechCrunch (FireCrawl) (HTTP Request)\n\n🧠 Filter Relevant Articles (Code)\n\n🔍 What these nodes do:\n🌐 Crawl TechCrunch (FireCrawl)\nUses a POST request to FireCrawl’s API\n\nInputs:\n\nurl: Target site (e.g., https://techcrunch.com)\n\ncrawl_type: \"scrape\"\n\nextract_article: true\n\nRetrieves:\n\ntitle, content, author, published_at\n\n🧠 Filter Relevant Articles\nUses a Code node to check if the article is relevant\n\nKeywords like \"AI\", \"machine learning\", \"startup\" are matched\n\nFilters only the articles that matter to your domain",
+        "height": 800,
+        "width": 440,
+        "color": 3
+      },
+      "id": "d454ee2c-0994-4978-b426-17a778cea977",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -420,
+        20
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "🤖💬 3. Summarization & Delivery\nNodes:\n🧠 Summarize Article with AI (AI Agent)\n\n🔗 OpenAI Chat (Summarizer) (OpenAI Chat Model)\n\n💬 Send Summary to Slack (Slack)\n\n📌 What happens here:\n🤖 Summarize Article with AI\nPasses the article to a GPT-4 or GPT-3.5 agent\n\nUses a prompt like:\n\n“Summarize the following article in 3 bullet points…”\n\n💡 OpenAI Chat (Summarizer)\nExecutes the actual summarization\n\nOutputs a short, clean summary ideal for fast reading\n\n💬 Send Summary to Slack\nPosts the summary to a specific Slack channel (e.g., #market-research)",
+        "height": 920,
+        "width": 640,
+        "color": 5
+      },
+      "id": "89aa9460-3a15-41a8-99c5-73f28b5be7bd",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        80,
+        60
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "=======================================\n            WORKFLOW ASSISTANCE\n=======================================\nFor any questions or support, please contact:\n    Yaron@nofluff.online\n\nExplore more tips and tutorials here:\n   - YouTube: https://www.youtube.com/@YaronBeen/videos\n   - LinkedIn: https://www.linkedin.com/in/yaronbeen/\n=======================================\n",
+        "height": 320,
+        "width": 1300,
+        "color": 4
+      },
+      "id": "77b364ea-25fa-4855-93e8-027e4c10a49b",
+      "name": "Sticky Note9",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2600,
+        40
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "Absolutely! Here's your **Market Research Automation Workflow** beautifully divided into logical sections, with clear explanations and fitting icons to help you grasp each part at a glance.\n\n---\n\n# 🚀 **n8n Market Research Automation Workflow**\n\nAutomate the process of **crawling news sites**, **filtering for relevant content**, **summarizing it with AI**, and **posting it to Slack** — all in a seamless flow.\n\n---\n\n## ⏰ 1. **Trigger & Scheduling**\n\n**Node:** `🕒 Daily Market Research Trigger`\n\n> Starts the workflow on a recurring schedule.\n\n🔧 **What it does:**\n\n* Runs every morning (or your defined time)\n* Ensures your team receives fresh updates daily\n\n📅 **Example Cron Setting:**\n\n* Every day at 8:00 AM\n\n---\n\n## 🌐💻 2. **Crawling & Filtering**\n\n### **Nodes:**\n\n* `🌐 Crawl TechCrunch (FireCrawl)` *(HTTP Request)*\n* `🧠 Filter Relevant Articles` *(Code)*\n\n### 🔍 What these nodes do:\n\n#### 🌐 **Crawl TechCrunch (FireCrawl)**\n\n* Uses a **POST** request to FireCrawl’s API\n* Inputs:\n\n  * `url`: Target site (e.g., `https://techcrunch.com`)\n  * `crawl_type`: `\"scrape\"`\n  * `extract_article`: `true`\n* Retrieves:\n\n  * `title`, `content`, `author`, `published_at`\n\n#### 🧠 **Filter Relevant Articles**\n\n* Uses a `Code` node to check if the article is relevant\n* Keywords like `\"AI\"`, `\"machine learning\"`, `\"startup\"` are matched\n* Filters only the articles that **matter to your domain**\n\n📄 **Sample Code:**\n\n```javascript\nconst keywords = ['AI', 'machine learning', 'startup', 'generative'];\nconst results = [];\n\nfor (const item of items) {\n  const title = item.json.article?.title?.toLowerCase() || '';\n  const content = item.json.article?.content?.toLowerCase() || '';\n\n  const isRelevant = keywords.some(keyword =>\n    title.includes(keyword.toLowerCase()) ||\n    content.includes(keyword.toLowerCase())\n  );\n\n  if (isRelevant) {\n    results.push(item); // keep only relevant articles\n  }\n}\n\nreturn results;\n```\n\n---\n\n## 🤖💬 3. **Summarization & Delivery**\n\n### **Nodes:**\n\n* `🧠 Summarize Article with AI` *(AI Agent)*\n* `🔗 OpenAI Chat (Summarizer)` *(OpenAI Chat Model)*\n* `💬 Send Summary to Slack` *(Slack)*\n\n### 📌 What happens here:\n\n#### 🤖 **Summarize Article with AI**\n\n* Passes the article to a GPT-4 or GPT-3.5 agent\n* Uses a prompt like:\n\n  > “Summarize the following article in 3 bullet points…”\n\n#### 💡 **OpenAI Chat (Summarizer)**\n\n* Executes the actual summarization\n* Outputs a short, clean summary ideal for fast reading\n\n#### 💬 **Send Summary to Slack**\n\n* Posts the summary to a specific Slack channel (e.g., `#market-research`)\n* Message format example:\n\n  ```\n  🔍 *Market Research Summary*\n  *Title:* OpenAI launches GPT-5\n  *Link:* https://techcrunch.com/article\n  *Summary:*\n  - GPT-5 improves reasoning\n  - Enhanced safety mechanisms\n  - Better multilingual performance\n  ```\n\n",
+        "height": 2758,
+        "width": 1289,
+        "color": 4
+      },
+      "id": "6258735d-fd43-443d-9585-57475a178bc7",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2600,
+        380
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "url": "=https://api.firecrawl.dev/v1/extract/{{$('Firecrawl extract').item.json.id}}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -140,
+        600
+      ],
+      "id": "72b73c30-b08a-42df-b3d6-842c2afa8869",
+      "name": "checking status",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "e7DMdqy4rMi0Q233",
+          "name": "HeaderAuth firecrawl"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "ed2351db-81b5-45b1-b4ac-8ac79da74689",
+              "leftValue": "={{ $json.data }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        80,
+        600
+      ],
+      "id": "3ea134f9-35e6-421a-99f1-e0fbeed05eb8",
+      "name": "If",
+      "alwaysOutputData": false,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        220,
+        820
+      ],
+      "id": "b2f3bef3-39cb-4e9f-82ff-01b8e25f38ea",
+      "name": "Wait",
+      "webhookId": "38f726d4-a682-475f-b058-5a00ce530d35"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.firecrawl.dev/v1/extract",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"urls\": [\n    \"https://quotes.toscrape.com/*\"\n  ],\n  \"prompt\": \"Extract all quotes and their corresponding authors from the website.\",\n  \"schema\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"quotes\": {\n        \"type\": \"array\",\n        \"items\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"quote\": {\n              \"type\": \"string\"\n            },\n            \"author\": {\n              \"type\": \"string\"\n            }\n          },\n          \"required\": [\n            \"quote\",\n            \"author\"\n          ]\n        }\n      }\n    },\n    \"required\": [\n      \"quotes\"\n    ]\n  }\n}",
+        "options": {}
+      },
+      "id": "8452853a-9327-48ad-a327-1b45c79847e0",
+      "name": "Firecrawl extract",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        -360,
+        600
+      ],
+      "typeVersion": 4.2,
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "KlVGLpsJVXoAvMRr",
+          "name": "Firecrawl"
+        },
+        "httpHeaderAuth": {
+          "id": "e7DMdqy4rMi0Q233",
+          "name": "HeaderAuth firecrawl"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fbd8db3b-a44e-41ff-9585-5fa3dfe453a0",
+              "name": "data",
+              "value": "={{ $json.data.quotes }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        300,
+        600
+      ],
+      "id": "b26c0d3a-97c4-46fb-86b6-f9a605cf3421",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst parsedObject = JSON.parse($('Edit Fields').first().json.data);\n\nreturn parsedObject"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        520,
+        600
+      ],
+      "id": "4e89f831-ad2c-4ecd-8076-9d905ef291f4",
+      "name": "parse json"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Daily Market Research Trigger": {
+      "main": [
+        [
+          {
+            "node": "Firecrawl extract",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "checking status": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "checking status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Firecrawl extract": {
+      "main": [
+        [
+          {
+            "node": "checking status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "parse json",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "fb02b292-33e8-4a58-83a1-59fa2f4ab675",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8b98216641d21c7a7c8fa49930b923d043d8a64e5ee379d544a06dae10f89c9a"
+  },
+  "id": "6WyzPFPT378wEoFV",
+  "tags": []
+}
